@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Resume - Placement System{% endblock %}
+
+{% block content %}
+<div class="form-container fade-in">
+    <div class="form-section">
+        <h2><i class="fas fa-file-pdf"></i> Upload Resume</h2>
+        <p class="subtitle">Upload your resume in PDF format (max 5MB)</p>
+        
+        <form method="POST" action="{{ url_for('student_upload_resume') }}" enctype="multipart/form-data" id="uploadForm">
+            <div class="form-group">
+                <label for="resume"><i class="fas fa-file-pdf"></i> Select Resume (PDF)</label>
+                <input type="file" id="resume" name="resume" accept=".pdf" required>
+                <p class="hint"><i class="fas fa-info-circle"></i> Only PDF files are allowed. Max file size: 5MB</p>
+            </div>
+            
+            <div id="filePreview" style="display: none; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <p><i class="fas fa-file-pdf"></i> <span id="fileName"></span></p>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-upload"></i> Upload Resume
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('resume').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        document.getElementById('fileName').textContent = file.name;
+        document.getElementById('filePreview').style.display = 'block';
+        
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size exceeds 5MB limit!');
+            this.value = '';
+            document.getElementById('filePreview').style.display = 'none';
+        }
+    }
+});
+</script>
+{% endblock %}

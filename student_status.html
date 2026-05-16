@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}My Applications - Placement System{% endblock %}
+
+{% block content %}
+<div class="dashboard fade-in">
+    <div class="table-header">
+        <h2><i class="fas fa-clipboard-list"></i> My Applications</h2>
+    </div>
+    
+    {% if applications %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th><i class="fas fa-briefcase"></i> Job Title</th>
+                    <th><i class="fas fa-clock"></i> Applied Date</th>
+                    <th><i class="fas fa-info-circle"></i> Status</th>
+                    <th><i class="fas fa-trophy"></i> Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                <tr>
+                    <td><strong>{{ app.title }}</strong></td>
+                    <td>{{ app.applied_date }}</td>
+                    <td>
+                        <span class="status-badge {{ app.status }}">
+                            {% if app.status == 'applied' %}Applied
+                            {% elif app.status == 'shortlisted' %}Shortlisted
+                            {% elif app.status == 'placed' %}Placed
+                            {% elif app.status == 'rejected' %}Rejected
+                            {% else %}{{ app.status }}
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        {% if app.result %}
+                            {% if app.result == 'placed' %}
+                            <span style="color: var(--success);"><i class="fas fa-check-circle"></i> Placed</span>
+                            {% elif app.result == 'rejected' %}
+                            <span style="color: var(--danger);"><i class="fas fa-times-circle"></i> Not Selected</span>
+                            {% else %}
+                            {{ app.result }}
+                            {% endif %}
+                        {% else %}
+                        <span style="color: var(--gray);"><i class="fas fa-hourglass-half"></i> Pending</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="icon"><i class="fas fa-file-alt"></i></div>
+        <h3>No Applications Yet</h3>
+        <p>Start applying for jobs to see your applications here.</p>
+        <a href="{{ url_for('student_notices') }}" class="btn btn-primary" style="margin-top: 1rem;">
+            <i class="fas fa-search"></i> Browse Jobs
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Student Placement System{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h2><i class="fas fa-rocket"></i> Welcome to Student Placement System</h2>
+    <p>Your gateway to career opportunities. Connect with top companies and land your dream job.</p>
+    <div class="btn-group" style="margin-top: 2rem; justify-content: center;">
+        <a href="{{ url_for('student_register') }}" class="btn btn-primary" style="max-width: 200px;"><i class="fas fa-user-plus"></i> Get Started</a>
+        <a href="{{ url_for('student_login') }}" class="btn btn-secondary" style="max-width: 200px; background: rgba(255,255,255,0.2); border: 2px solid white; color: white;"><i class="fas fa-sign-in-alt"></i> Login</a>
+    </div>
+</section>
+
+<div class="stats slide-up">
+    <div class="stat-card">
+        <h3>500+</h3>
+        <p>Partner Companies</p>
+    </div>
+    <div class="stat-card success">
+        <h3>2000+</h3>
+        <p>Students Placed</p>
+    </div>
+    <div class="stat-card warning">
+        <h3>150+</h3>
+        <p>Recruiters</p>
+    </div>
+    <div class="stat-card danger">
+        <h3>100%</h3>
+        <p>Placement Support</p>
+    </div>
+</div>
+
+<section class="features">
+    <div class="feature-card">
+        <div class="icon"><i class="fas fa-user-graduate"></i></div>
+        <h3>For Students</h3>
+        <p>Create your profile, upload resumes, browse job listings, and track your applications all in one place.</p>
+        <a href="{{ url_for('student_register') }}">Register Now <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="feature-card">
+        <div class="icon"><i class="fas fa-building"></i></div>
+        <h3>For Companies</h3>
+        <p>Post job openings, review applications, and connect with talented students from top institutions.</p>
+        <a href="{{ url_for('admin_login') }}">Post Jobs <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="feature-card">
+        <div class="icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Track Progress</h3>
+        <p>Monitor your application status, view interview results, and stay updated on your placement journey.</p>
+        <a href="{{ url_for('student_login') }}">Check Status <i class="fas fa-arrow-right"></i></a>
+    </div>
+</section>
+
+<section class="dashboard" style="margin-top: 3rem;">
+    <h2><i class="fas fa-star"></i> Why Choose Our Platform?</h2>
+    <div class="info-cards" style="margin-top: 1.5rem;">
+        <div class="info-card">
+            <h4><i class="fas fa-check-circle" style="color: var(--success);"></i> Easy Application Process</h4>
+            <p>Apply to multiple companies with just a few clicks. Your profile does the heavy lifting.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fas fa-bell" style="color: var(--primary);"></i> Instant Notifications</h4>
+            <p>Get real-time updates on application status, interview schedules, and new job postings.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fas fa-shield-alt" style="color: var(--secondary);"></i> Secure & Private</h4>
+            <p>Your data is protected with industry-standard security. Control who sees your information.</p>
+        </div>
+        <div class="info-card">
+            <h4><i class="fas fa-mobile-alt" style="color: var(--warning);"></i> Access Anywhere</h4>
+            <p>Access the platform from any device. Stay connected with your placement journey on the go.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Placement System{% endblock %}
+
+{% block content %}
+<div class="profile-header fade-in">
+    <div class="profile-avatar">
+        <i class="fas fa-user-graduate"></i>
+    </div>
+    <div class="profile-info">
+        <h2>Welcome back, {{ student.name }}!</h2>
+        <p><i class="fas fa-book"></i> {{ student.branch }} | <i class="fas fa-calendar"></i> {{ student.year }} Year</p>
+        <p>{% if student.resume_path %}<i class="fas fa-check-circle" style="color: var(--success);"></i> Resume Uploaded{% else %}<i class="fas fa-exclamation-circle" style="color: var(--warning);"></i> Resume Not Uploaded{% endif %}</p>
+    </div>
+</div>
+
+<div class="stats slide-up">
+    <div class="stat-card">
+        <h3>{{ jobs_count }}</h3>
+        <p>Available Jobs</p>
+    </div>
+    <div class="stat-card success">
+        <h3>{{ applied_count }}</h3>
+        <p>Applications</p>
+    </div>
+    <div class="stat-card warning">
+        <h3>{{ shortlisted_count }}</h3>
+        <p>Shortlisted</p>
+    </div>
+    <div class="stat-card danger">
+        <h3>{{ placed_count }}</h3>
+        <p>Placed</p>
+    </div>
+</div>
+
+<div class="dashboard fade-in">
+    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+    <div class="dashboard-grid" style="margin-top: 1.5rem;">
+        <a href="{{ url_for('student_profile') }}" class="dashboard-card">
+            <div class="icon"><i class="fas fa-user-edit"></i></div>
+            <h3>Edit Profile</h3>
+            <p>Update your personal information</p>
+        </a>
+        
+        <a href="{{ url_for('student_upload_resume') }}" class="dashboard-card">
+            <div class="icon"><i class="fas fa-file-pdf"></i></div>
+            <h3>Upload Resume</h3>
+            <p>Upload or update your resume</p>
+        </a>
+        
+        <a href="{{ url_for('student_notices') }}" class="dashboard-card">
+            <div class="icon"><i class="fas fa-briefcase"></i></div>
+            <h3>Browse Jobs</h3>
+            <p>View and apply for jobs</p>
+        </a>
+        
+        <a href="{{ url_for('student_status') }}" class="dashboard-card">
+            <div class="icon"><i class="fas fa-clipboard-list"></i></div>
+            <h3>My Applications</h3>
+            <p>Track your application status</p>
+        </a>
+    </div>
+</div>
+
+<div class="info-cards" style="margin-top: 2rem;">
+    <div class="info-card">
+        <h4><i class="fas fa-lightbulb" style="color: var(--warning);"></i> Tips for Success</h4>
+        <p>Make sure your profile is complete and your resume is up to date before applying for jobs.</p>
+    </div>
+    <div class="info-card">
+        <h4><i class="fas fa-bell" style="color: var(--primary);"></i> Stay Updated</h4>
+        <p>Check the portal regularly for new job postings and application status updates.</p>
+    </div>
+</div>
+
+{% endblock %}

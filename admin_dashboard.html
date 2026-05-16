@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Placement System{% endblock %}
+
+{% block content %}
+<div class="profile-header fade-in" style="background: linear-gradient(135deg, #2b2d42 0%, #1a1a2e 100%);">
+    <div class="profile-avatar">
+        <i class="fas fa-user-shield"></i>
+    </div>
+    <div class="profile-info">
+        <h2><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
+        <p>Manage the placement system</p>
+    </div>
+</div>
+
+<div class="stats slide-up">
+    <div class="stat-card">
+        <h3>{{ students_count }}</h3>
+        <p>Total Students</p>
+    </div>
+    <div class="stat-card success">
+        <h3>{{ jobs_count }}</h3>
+        <p>Active Jobs</p>
+    </div>
+    <div class="stat-card warning">
+        <h3>{{ applications_count }}</h3>
+        <p>Applications</p>
+    </div>
+    <div class="stat-card danger">
+        <h3>{{ placed_count }}</h3>
+        <p>Placed Students</p>
+    </div>
+</div>
+
+<div class="dashboard fade-in">
+    <h2><i class="fas fa-cogs"></i> Management Console</h2>
+    <div class="dashboard-grid" style="margin-top: 1.5rem;">
+        <a href="{{ url_for('admin_students') }}" class="dashboard-card">
+            <div class="icon"><i class="fas fa-users"></i></div>
+            <h3>Manage Students</h3>
+            <p>View and manage student profiles</p>
+        </a>
+        
+        <a href="{{ url_for('admin_notices') }}" class="dashboard-card">
+            <div class="icon"><i class="fas fa-bullhorn"></i></div>
+            <h3>Job Notices</h3>
+            <p>Post and manage job listings</p>
+        </a>
+        
+        <a href="{{ url_for('admin_applications') }}" class="dashboard-card">
+            <div class="icon"><i class="fas fa-file-alt"></i></div>
+            <h3>Applications</h3>
+            <p>Review student applications</p>
+        </a>
+        
+        <a href="{{ url_for('admin_results') }}" class="dashboard-card">
+            <div class="icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Results</h3>
+            <p>Update placement results</p>
+        </a>
+    </div>
+</div>
+
+<div class="info-cards" style="margin-top: 2rem;">
+    <div class="info-card">
+        <h4><i class="fas fa-chart-pie" style="color: var(--primary);"></i> Placement Analytics</h4>
+        <p>Track placement statistics and success rates across different branches and companies.</p>
+    </div>
+    <div class="info-card">
+        <h4><i class="fas fa-shield-alt" style="color: var(--success);"></i> System Status</h4>
+        <p>All systems operational. Database and file storage working correctly.</p>
+    </div>
+</div>
+{% endblock %}

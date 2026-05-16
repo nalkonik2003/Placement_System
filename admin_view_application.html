@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}View Application - Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard fade-in">
+    <h2><i class="fas fa-file-alt"></i> Application Details</h2>
+    
+    <div class="info-cards" style="margin-top: 1.5rem;">
+        <div class="info-card">
+            <h4><i class="fas fa-user"></i> Student Information</h4>
+            <p><strong>Name:</strong> {{ application.name }}</p>
+            <p><strong>Email:</strong> {{ application.email }}</p>
+            <p><strong>Phone:</strong> {{ application.phone }}</p>
+            <p><strong>Branch:</strong> {{ application.branch }}</p>
+            <p><strong>Year:</strong> {{ application.year }}</p>
+            {% if application.skills %}
+            <p><strong>Skills:</strong> {{ application.skills }}</p>
+            {% endif %}
+            {% if application.resume_path %}
+            <p><strong>Resume:</strong> <a href="{{ url_for('download_resume', student_id=application.student_id) }}" target="_blank">View Resume</a></p>
+            {% endif %}
+        </div>
+        
+        <div class="info-card">
+            <h4><i class="fas fa-briefcase"></i> Job Details</h4>
+            <p><strong>Position:</strong> {{ application.title }}</p>
+            <p><strong>Company:</strong> {{ application.company }}</p>
+            <p><strong>Description:</strong> {{ application.description }}</p>
+            <p><strong>Requirements:</strong> {{ application.requirements }}</p>
+        </div>
+        
+        <div class="info-card">
+            <h4><i class="fas fa-info-circle"></i> Application Status</h4>
+            <p><strong>Applied Date:</strong> {{ application.applied_date }}</p>
+            <p><strong>Current Status:</strong> 
+                <span class="status-badge {{ application.status }}">
+                    {{ application.status }}
+                </span>
+            </p>
+        </div>
+    </div>
+    
+    <div style="margin-top: 2rem;">
+        <a href="{{ url_for('admin_applications') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Applications
+        </a>
+        
+        {% if application.status == 'applied' %}
+        <form method="POST" action="{{ url_for('admin_shortlist', app_id=application.id) }}" style="display: inline;">
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-check"></i> Shortlist Student
+            </button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

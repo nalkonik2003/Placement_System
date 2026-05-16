@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Student Placement System</h1>
+        <nav>
+            <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('admin_students') }}">Manage Students</a>
+            <a href="{{ url_for('admin_notices') }}">Manage Notices</a>
+            <a href="{{ url_for('admin_applications') }}">View Applications</a>
+            <a href="{{ url_for('admin_results') }}">Update Results</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <section class="results">
+            <h2>Update Placement Results</h2>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="flash-messages">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% if applications %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Job Title</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app in applications %}
+                            <tr>
+                                <td>{{ app.name }}</td>
+                                <td>{{ app.title }}</td>
+                                <td>{{ app.status }}</td>
+                                <td>
+                                    <form action="{{ url_for('admin_results') }}" method="post" style="display:inline;">
+                                        <input type="hidden" name="app_id" value="{{ app.id }}">
+                                        <select name="result" required>
+                                            <option value="placed">Placed</option>
+                                            <option value="rejected">Rejected</option>
+                                        </select>
+                                        <button type="submit">Update</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No applications to update.</p>
+            {% endif %}
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Student Placement System</p>
+    </footer>
+</body>
+</html>

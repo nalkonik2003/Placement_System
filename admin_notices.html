@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Jobs - Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard fade-in">
+    <h2><i class="fas fa-bullhorn"></i> Manage Job Listings</h2>
+    
+    <div class="form-section" style="max-width: 100%; margin-bottom: 2rem;">
+        <h3><i class="fas fa-plus-circle"></i> Post New Job</h3>
+        <form method="POST" action="{{ url_for('admin_notices') }}">
+            <input type="hidden" name="add" value="1">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label for="title"><i class="fas fa-briefcase"></i> Job Title</label>
+                    <input type="text" id="title" name="title" placeholder="e.g., Software Engineer" required>
+                </div>
+                <div class="form-group">
+                    <label for="company"><i class="fas fa-building"></i> Company</label>
+                    <input type="text" id="company" name="company" placeholder="e.g., Google" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description"><i class="fas fa-align-left"></i> Job Description</label>
+                <textarea id="description" name="description" placeholder="Describe the job role and responsibilities..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="requirements"><i class="fas fa-clipboard-check"></i> Requirements</label>
+                <textarea id="requirements" name="requirements" placeholder="List the required skills and qualifications..." required></textarea>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                    <label for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
+                    <input type="text" id="location" name="location" placeholder="e.g., Remote">
+                </div>
+                <div class="form-group">
+                    <label for="salary"><i class="fas fa-money-bill-wave"></i> Salary</label>
+                    <input type="text" id="salary" name="salary" placeholder="e.g., 5-8 LPA">
+                </div>
+                <div class="form-group">
+                    <label for="deadline"><i class="fas fa-calendar"></i> Deadline</label>
+                    <input type="date" id="deadline" name="deadline">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Post Job
+            </button>
+        </form>
+    </div>
+    
+    <h3><i class="fas fa-list"></i> Existing Job Listings</h3>
+    {% if jobs %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Company</th>
+                    <th>Location</th>
+                    <th>Salary</th>
+                    <th>Posted</th>
+                    <th>Deadline</th>
+                    <th>Actions </tr>
+           </th>
+                </thead>
+            <tbody>
+                {% for job in jobs %}
+                <tr>
+                    <td><strong>{{ job.title }}</strong></td>
+                    <td>{{ job.company }}</td>
+                    <td>{{ job.location or '-' }}</td>
+                    <td>{{ job.salary or '-' }}</td>
+                    <td>{{ job.posted_date }}</td>
+                    <td>{{ job.deadline or 'No deadline' }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('admin_notices') }}" style="display: inline;">
+                            <input type="hidden" name="delete" value="1">
+                            <input type="hidden" name="job_id" value="{{ job.id }}">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="icon"><i class="fas fa-briefcase"></i></div>
+        <h3>No Jobs Posted</h3>
+        <p>Post your first job using the form above.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
